@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Bookings</title>
+</head>
+<body>
+<form action="/clients" method="post">
+    <button type="submit" name="button" value="clients">Clients</button>
+</form>
+<form action="/tables" method="post">
+    <button type="submit" name="button" value="tables">Tables</button>
+</form>
+<form th:object="${booking}" method="post">
+    <label>Booking Name</label>
+    <input type="text" th:field="*{name}" required/>
+    <label>Client Name</label>
+    <input type="text" th:field="*{clientName}" required/>
+    <label>Number of guests</label>
+    <input type="number" min="1" th:field="*{guestNumber}"/>
+    <label>Date</label>
+    <input type="date" th:field="*{bookDate}" required/>
+    <label>Additional Remarks</label>
+    <input type="text" th:field="*{additionalRemarks}" required/>
+    <p th:if="${noTableAvailable == true}">
+        No table available for the selection criteria
+    </p>
+    <p th:if="${noClientsFound == true}">
+        No clients found for the selection criteria
+    </p>
+    <input type="submit" value="Add"/>
+</form>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Booking Name</th>
+        <th>Client Name</th>
+        <th>Date</th>
+        <th>Number of guests</th>
+        <th>Table</th>
+        <th>Table Size</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="b: ${bookings}">
+        <td th:text="${b.id}"></td>
+        <td th:text="${b.name}"></td>
+        <td th:text="${b.client.name}"></td>
+        <td th:text="${b.bookDate}"></td>
+        <td th:text="${b.guestNumber}"></td>
+        <td th:text="${b.table.name}"></td>
+        <td th:text="${b.table.size}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

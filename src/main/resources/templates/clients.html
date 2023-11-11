@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Clients</title>
+</head>
+<body>
+<form action="/bookings" method="post">
+    <button type="submit" name="button" value="bookings">Bookings</button>
+</form>
+<form action="/tables" method="post">
+    <button type="submit" name="button" value="tables">Tables</button>
+</form>
+<form th:object="${client}" method="post">
+    <label for="name">Name: </label>
+    <input id="name" type="text" required th:field="*{name}"/>
+    <label for="email">Email: </label>
+    <input id="email" type="text" required th:field="*{email}"/>
+    <label for="phoneNum">Phone Number: </label>
+    <input id="phoneNum" type="text" required th:field="*{phoneNum}"/>
+    <input type="submit" value="Add"/>
+    <p th:if="${#fields.hasErrors('name')}"
+       th:errors="*{name}">Name Error</p>
+    <p th:if="${#fields.hasErrors('email')}"
+       th:errors="*{email}">Email Error</p>
+    <p th:if="${#fields.hasErrors('phoneNum')}"
+       th:errors="*{phoneNum}">Phone Number Error</p>
+
+</form>
+<table border="1">
+</html>
+<thead>
+<tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>PhoneNum</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="c: ${clients}">
+    <td th:text="${c.id}">1</td>
+    <td th:text="${c.name}">Fabulous</td>
+    <td th:text="${c.email}">Fabulous</td>
+    <td th:text="${c.phoneNum}">Fabulous</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

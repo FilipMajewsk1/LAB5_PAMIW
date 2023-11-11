@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Tables</title>
+</head>
+<body>
+<form action="/clients" method="post">
+    <button type="submit" name="button" value="clients">Clients</button>
+</form>
+<form action="/bookings" method="post">
+    <button type="submit" name="button" value="bookings">Bookings</button>
+</form>
+<form th:object="${table}" method="post">
+    <label for="name">Name: </label>
+    <input id="name" type="text" required th:field="*{name}"/>
+    <label for="size">Size: </label>
+    <input id="size" type="number"
+           th:field="*{size}"/>
+    <input type="submit" value="Add"/>
+    <p th:if="${#fields.hasErrors('name')}"
+       th:errors="*{name}">Name Error</p>
+    <p th:if="${#fields.hasErrors('size')}"
+       th:errors="*{size}">Size Error</p>
+</form>
+<table border="1">
+</html>
+<thead>
+<tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="t: ${tables}">
+    <td th:text="${t.id}">1</td>
+    <td th:text="${t.name}">Fabulous</td>
+    <td th:text="${t.size}">4</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
